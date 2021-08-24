@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0; 
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.container div {
+    border: 1px solid black;
+    height: 10rem;
+    width: 10rem;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-size: 7rem;
+}
+
+.container div:hover {
+    cursor: pointer;
+}
