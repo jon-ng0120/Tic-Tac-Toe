@@ -7,17 +7,112 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+@keyframes fadeInWelcome {
+    0% {
+        opacity: 0;
+        bottom: 0;
+    }
+
+    70% {
+        bottom: 0;
+    }
+
+    100% {
+        opacity: 1;
+        margin-bottom: 1.5rem;
+        /* bottom: 2rem; */
+    }
+}
+
+
+.welcome-message {
+    position: relative;
+    animation: fadeInWelcome 1s forwards;
+    text-align: center;
+    /* transition:  */
+}
+
+.game-option  {
+    text-align: center;
+}
+
+.game-option button {
+    margin-top: 1rem;
+    padding: 0.6rem;
+    font-size: 1rem;
+    width: 12rem;
+    height: 3rem;
+}
+
+.game-option button:hover {
+    cursor: pointer;
+}
+
+
 .container {
     height: 100vh;
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(3, auto);
     justify-content: center;
     align-items: center;
     align-content: center;
+    position: relative;
 }
 
-.container div {
+.against-friend-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    display: none;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+}
+
+.against-friend-container input {
+    padding: 0.4rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 0.4rem;
+}
+
+.player-name-error {
+    background-color: rgb(255, 136, 136);
+    border-radius: 5px;
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    display: none;
+    font-weight: bold;
+}
+
+.start-game {
+    grid-column: 1 / span 2;
+    width: 10em;
+    height: 2rem;
+    justify-self: center;
+    border-radius: 5px;
+}
+
+.start-game:hover {
+    cursor: pointer;
+}
+
+.turn-container h1 {
+    text-align: center;
+    padding: 1rem;
+    font-size: 3rem;
+    color: rgb(255, 149, 28)
+}
+
+.game-container {
+    display: none;
+    grid-template-rows: repeat(2, auto);
+}
+
+.game-container .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+
+.game-container .grid-container div {
     border: 1px solid black;
     height: 10rem;
     width: 10rem;
@@ -27,6 +122,6 @@ body {
     font-size: 7rem;
 }
 
-.container div:hover {
+.game-container .grid-container div:hover {
     cursor: pointer;
 }

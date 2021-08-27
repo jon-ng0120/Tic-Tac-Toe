@@ -11,7 +11,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container"></div>
+    <div class="container">
+        <div class="welcome-container">
+            <h1 class="welcome-message">Welcome to Tic Tac Toe</h1>
+            <div class="game-option">
+                <h2>Would you like to...</h2>
+                <div>
+                    <button class="against-ai">Play against an AI?</button>
+                    <button class="against-friend">Play against a friend?</button>
+                </div>
+            </div>
+            <div class="against-friend-container">
+                <div>
+                    <p>Player 1 name</p>
+                    <input type="text" class="player1-name">
+                    <div class="player-name-error" id="player1-name-error">Please enter a name</div>
+                </div>
+                <div>
+                    <p>Player 2 name</p>
+                    <input type="text" class="player2-name">
+                    <div class="player-name-error" id="player2-name-error">Please enter a name</div>
+                </div>
+                <button class="start-game">Start Game</button>
+            </div>
+        </div>
+        <div class="game-container">
+            <div class="turn-container">
+                <h1></h1>
+            </div>
+            <div class="grid-container"></div>
+        </div>
+    </div>
     <script src="scripts.js"></script>
 </body>
 </html>
