@@ -4,6 +4,13 @@ const againstAI = document.querySelector('.against-ai');
 const againstPlayer = document.querySelector('.against-friend');
 const startGame = document.querySelector('.start-game');
 
+againstAI.addEventListener('click', () => {
+    document.querySelector('.welcome-container').style.display = 'none'
+    document.querySelector('.game-container').style.display = 'grid'
+    player1 = PlayerFactory(`It's your`, 'x');
+    player2 = PlayerFactory('CPU', 'o')
+    const newGame = GameController(player1, 'cpu')
+})
 
 againstPlayer.addEventListener('click', () => {
     document.querySelector('.against-friend-container').style.display = 'grid';
@@ -58,9 +65,10 @@ const PlayerFactory = (name, symbol) => {
 let player1 = null;
 let player2 = null;
 
-const GameController = function(currentPlayer) {
+const GameController = function(currentPlayer, gameMode) {
 
     let playerTurnHeader = document.querySelector('.turn-container h1')
+    let gameModeOption = gameMode
 
     playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
 
@@ -78,17 +86,24 @@ const GameController = function(currentPlayer) {
     let winner = '';
 
     GameBoard.container.addEventListener('click', (e) => {
-        
-
         if (e.target.hasAttribute('data-id')) {
             if (e.target.textContent == '' && winner == '') {
                 e.target.textContent = currentPlayer.playerSymbol
                 currentPlayer.selectedDivs.push(parseInt(e.target.getAttribute('data-id'),10))
-                checkWinner(currentPlayer)
-                
+
+                checkWinner(currentPlayer) 
             }
+            
         }
     })
+
+    const cpuTurn = () => {
+        const gameBoardDivs = document.querySelector('.grid-container').querySelectorAll("div");
+        const openSpots = Array.from(gameBoardDivs).filter(ele => ele.textContent == '');
+        const randomOpenSpot = openSpots[Math.floor(Math.random()*openSpots.length)]
+        randomOpenSpot.click();
+
+    }
 
     const checkWinner = (player) => {
         const res = winningCombos.map(ele => {
@@ -107,9 +122,14 @@ const GameController = function(currentPlayer) {
                 playerTurnHeader.textContent = `It's a draw...`
                 GameBoard.container.style.backgroundColor = '#e8e8e8'
             } else {
-                currentPlayer = (currentPlayer === player1) ? player2 : player1
-                playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
+
+                    currentPlayer = (currentPlayer == player1) ? player2 : player1
+                    playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
             }
         }
+        if (gameMode == 'cpu') {
+            if (currentPlayer == player2) cpuTurn()
+        }
+        
     }
 };
