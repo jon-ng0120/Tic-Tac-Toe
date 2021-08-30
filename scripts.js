@@ -3,11 +3,13 @@
 const againstAI = document.querySelector('.against-ai');
 const againstPlayer = document.querySelector('.against-friend');
 const startGame = document.querySelector('.start-game');
+const playAgain = document.querySelector('.play-again-container');
+const playAgainBtn = playAgain.querySelector('button');
 
 againstAI.addEventListener('click', () => {
     document.querySelector('.welcome-container').style.display = 'none'
     document.querySelector('.game-container').style.display = 'grid'
-    player1 = PlayerFactory(`It's your`, 'x');
+    player1 = PlayerFactory(`Player`, 'x');
     player2 = PlayerFactory('CPU', 'o')
     const newGame = GameController(player1, 'cpu')
 })
@@ -32,8 +34,24 @@ startGame.addEventListener('click', () => {
         player2 = PlayerFactory(player2Name, 'o')
         const newGame = GameController(player1)
     }
+})
 
+playAgainBtn.addEventListener('click', () => {
+    document.querySelector('.game-container').style.display = 'none';
+    document.querySelector('.welcome-container').style.display = 'block';
+    document.querySelector('.against-friend-container').style.display = 'none';
+    document.querySelector('.player1-name').value = '';
+    document.querySelector('#player1-name-error').style.display = 'none';
+    document.querySelector('.player2-name').value = '';
+    document.querySelector('#player2-name-error').style.display = 'none';
+    GameBoard.container.style.backgroundColor = ''
 
+    const grids = Array.from(GameBoard.container.querySelectorAll('div')); 
+    grids.forEach(element => {
+        element.textContent = ''
+        element.style.backgroundColor = '';
+        element.style.color = '';
+    })
 })
 
 // Create the board
@@ -70,7 +88,12 @@ const GameController = function(currentPlayer, gameMode) {
     let playerTurnHeader = document.querySelector('.turn-container h1')
     let gameModeOption = gameMode
 
-    playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
+    if (gameMode == 'cpu') {
+        playerTurnHeader.textContent = 'Player turn'
+    } else {
+        playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
+    }
+    
 
     const winningCombos = [
         [1,2,3],
@@ -117,19 +140,25 @@ const GameController = function(currentPlayer, gameMode) {
             })
             winner = player
             playerTurnHeader.textContent = `${winner.playerName} wins!`
+            playAgain.style.display = 'grid';   
         } else {
+            // Tie game
             if ([...player1.selectedDivs, ...player2.selectedDivs].length == 9) {
                 playerTurnHeader.textContent = `It's a draw...`
                 GameBoard.container.style.backgroundColor = '#e8e8e8'
+                playAgain.style.display = 'grid';  
             } else {
 
                     currentPlayer = (currentPlayer == player1) ? player2 : player1
-                    playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
+                    if (gameMode == 'cpu') {
+                        playerTurnHeader.textContent = 'Player turn'
+                    } else {
+                        playerTurnHeader.textContent = `It's ${currentPlayer.playerName}'s turn`
+                    } 
             }
         }
         if (gameMode == 'cpu') {
             if (currentPlayer == player2) cpuTurn()
         }
-        
     }
 };

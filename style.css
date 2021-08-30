@@ -103,7 +103,7 @@ body {
 
 .game-container {
     display: none;
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
 }
 
 .game-container .grid-container {
@@ -124,4 +124,14 @@ body {
 
 .game-container .grid-container div:hover {
     cursor: pointer;
+}
+
+.play-again-container {
+    display: none;
+    justify-items: center;
+}
+
+.play-again-container button {
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
 }
